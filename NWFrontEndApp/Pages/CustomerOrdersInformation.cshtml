@@ -1,0 +1,37 @@
+﻿@page
+@model NWFrontEndApp.Pages.CustomerOrdersInformationModel
+
+@{
+    ViewData["Title"] = "Customer Orders Information";
+}
+
+<h2>Orders for Customer @Model.CustomerID</h2>
+
+@if (Model != null && Model.orders!=null && Model.orders.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Customer Id</th>
+                <th>Order Date</th>
+                <th>Shipped Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.orders.OrderBy(o => o.ShippedDate))
+            {
+                <tr>
+                    <td>@order.OrderID</td>
+                    <td>@order.CustomerID</td>
+                    <td>@order.OrderDate?.ToString("d")</td>
+                    <td>@order.ShippedDate?.ToString("d")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No orders found for this customer.</p>
+}
